@@ -11,9 +11,12 @@ bodyParser = bodyParser.urlencoded({ extended: false });
 
 const path = require("path");
 
+app.use(express.static(path.join(__dirname + "//assets")));
+
 //all => (get-post-put-patch-delete)
+
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname + "views", "index.html"));
+  res.sendFile(path.join(__dirname + "//views" + "//index.html"));
 });
 app.post("/form", bodyParser, (req, res) => {
   data = req.body;
