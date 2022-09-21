@@ -9,17 +9,16 @@ const app = express();
 // let bodyParser = require("body-parser");
 // bodyParser = bodyParser.urlencoded({ extended: true });
 
-app.use((req, res, next) => {
-  console.log("welcome from Home");
-  res.send("<h1>welcome from Home</h1>");
-  next();
+//all => (get-post-put-patch-delete)
+app.get("/", (req, res) => {
+  res.send("<h1>Welcome to Home</h1>");
 });
-app.use((req, res, next) => {
-  console.log("welcome from About");
-  next();
+app.get("/about", (req, res) => {
+  res.send("<h1>Welcome to About</h1>");
 });
-app.use((req, res, next) => {
-  console.log("welcome from Contact");
+
+app.get("/contact", (req, res) => {
+  res.send("<h1>Welcome to Contact</h1>");
 });
 
 const server = app.listen(port, () => {
