@@ -9,11 +9,11 @@ const app = express();
 let bodyParser = require("body-parser");
 bodyParser = bodyParser.urlencoded({ extended: false });
 
+const path = require("path");
+
 //all => (get-post-put-patch-delete)
 app.get("/", (req, res) => {
-  res.send(
-    '<form action="/form" method="POST"><input type="text" name="firstName"><button type="submit">Send</button></form>'
-  );
+  res.sendFile(path.join(__dirname + "views", "index.html"));
 });
 app.post("/form", bodyParser, (req, res) => {
   data = req.body;
