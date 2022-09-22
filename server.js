@@ -6,19 +6,26 @@ const express = require("express");
 // start up an instance of app
 const app = express();
 
-let bodyParser = require("body-parser");
-bodyParser = bodyParser.urlencoded({ extended: false });
+// require bodyparser
+// let bodyParser = require("body-parser");
+// bodyParser = bodyParser.urlencoded({ extended: false });
+app.use(express.urlencoded({ extended: false }));
 
+// reqyire path
 const path = require("path");
 
 app.use(express.static(path.join(__dirname + "//assets")));
 
+// setting ejs
+app.set("view engine", "ejs");
+app.set("views", "views");
+
 //all => (get-post-put-patch-delete)
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname + "//views" + "//index.html"));
+  res.render("index", { name: "Magdy", job: "Engineer" });
 });
-app.post("/form", bodyParser, (req, res) => {
+app.post("/form", (req, res) => {
   data = req.body;
   res.send(data);
 });
