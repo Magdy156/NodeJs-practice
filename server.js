@@ -1,5 +1,6 @@
 const port = 2200;
 let data = {};
+
 // require express to run server and routes
 const express = require("express");
 
@@ -20,22 +21,54 @@ app.use(express.static(path.join(__dirname + "//assets")));
 app.set("view engine", "ejs");
 app.set("views", "views");
 
-//all => (get-post-put-patch-delete)
+const mongoose = require("mongoose");
+const { stringify } = require("querystring");
+const { stderr } = require("process");
+
+let url = "mongodb://localhost:27017/myTest";
+
+let schemaStudent = mongoose.Schema({
+  firstName: String,
+  lastName: String,
+  Age: Number,
+  speciality: String,
+});
+let Student = mongoose.model("student", schemaStudent);
 
 app.get("/", (req, res) => {
-  res.render("index", { name: "Magdy", job: "Engineer" });
-});
-app.post("/form", (req, res) => {
-  data = req.body;
-  res.send(data);
-});
-
-app.get("/about", (req, res) => {
-  res.send("<h1>Welcome to About</h1>");
+  mongoose.connect(url).then((res) => {
+    console.log("connected");
+    mongoose.disconnect();
+  });
 });
 
-app.get("/contact", (req, res) => {
-  res.send("<h1>Welcome to Contact</h1>");
+app.get("/createcollection", (req, res) => {
+  mongoose.connect(url).then((res) => {
+    // let std = new Student({
+    //   firstName: "Magdy",
+    //   lastName: "Hamdy",
+    //   Age: 20,
+    //   speciality: "Engineer",
+    // });
+    // std.save()
+    Student.insertMany([
+      {
+        firstName: "Magdy",
+        lastName: "Hamdy",
+        Age: 20,
+        speciality: "Engineer",
+      },
+      {
+        firstName: "Gehad",
+        lastName: "Magdy",
+        Age: 15,
+        speciality: "Designer",
+      },
+    ]).then((res) => {
+      console.log(res);
+      console.log("inserted");
+    });
+  });
 });
 
 const server = app.listen(port, () => {
