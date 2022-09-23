@@ -42,7 +42,7 @@ app.get("/", (req, res) => {
   });
 });
 
-app.get("/createcollection", (req, res) => {
+app.get("/createdocuments", (req, res) => {
   mongoose.connect(url).then((res) => {
     // let std = new Student({
     //   firstName: "Magdy",
@@ -80,6 +80,30 @@ app.get("/readdata", (req, res) => {
     await Student.find((err, docs) => {
       res.send(docs);
       mongoose.disconnect().then(console.log("disconnected"));
+    });
+  });
+});
+
+app.get("/update", (req, res) => {
+  mongoose.connect(url).then(async (result) => {
+    await Student.updateOne(
+      { _id: "632e0abfbca6aaa4897f5584" },
+      { firstName: "Malek", lastName: "Magdy" },
+      (err, res) => {
+        console.log("updated");
+        mongoose.disconnect().then(console.log("disconnected"));
+      }
+    );
+  });
+});
+app.get("/delete", (req, res) => {
+  mongoose.connect(url).then(async (result) => {
+    await Student.deleteOne({ _id: "632e2640264116e4ffe8aa6e" }, (err) => {
+      if (err) throw err;
+      else {
+        console.log("deleted");
+        mongoose.disconnect().then(console.log("disconnected"));
+      }
     });
   });
 });
