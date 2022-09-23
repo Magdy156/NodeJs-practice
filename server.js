@@ -64,9 +64,22 @@ app.get("/createcollection", (req, res) => {
         Age: 15,
         speciality: "Designer",
       },
-    ]).then((res) => {
-      console.log(res);
-      console.log("inserted");
+    ])
+      .then((res) => {
+        console.log(res);
+        console.log("inserted");
+      })
+      .then(() => {
+        mongoose.disconnect();
+      });
+  });
+});
+
+app.get("/readdata", (req, res) => {
+  mongoose.connect(url).then(async (result) => {
+    await Student.find((err, docs) => {
+      res.send(docs);
+      mongoose.disconnect().then(console.log("disconnected"));
     });
   });
 });
