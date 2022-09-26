@@ -41,3 +41,17 @@ exports.getThreeBooks = () => {
       .catch((err) => rejected(err));
   });
 };
+exports.getDetails = (id) => {
+  return new promiseImpl((resolved, rejected) => {
+    mongoose
+      .connect(url)
+      .then(() => {
+        return book.findById(id);
+      })
+      .then((books) => {
+        mongoose.disconnect();
+        resolved(books);
+      })
+      .catch((err) => rejected(err));
+  });
+};

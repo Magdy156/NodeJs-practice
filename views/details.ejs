@@ -1,4 +1,4 @@
-<%- include('./parts/top.ejs')%>
+<%- include('parts/top.ejs')%>
 <br>
 <br>
 <br>
@@ -7,14 +7,12 @@
 <div class="container">
     <div class="row">
       <div class="col">
-        <img height="400px" src="uploads/holly-black.jpg" alt="">
+        <img src="/uploads/<%= book.image %>" alt="">
       </div>
       <div class="col">
-        <h1>Book of night</h1><h4>Holly Black</h4>
-        <span>$30</span>
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
-          Cum mollitia, minima numquam dicta ipsa temporibus at adipisci dolore accusamus 
-          quaerat quae, assumenda magnam, doloribus nostrum! Iste at mollitia et totam.</p>
+        <h1><%= book.title %></h1><h4><%= book.author %></h4>
+        <span><%= book.price %>$</span>
+        <p><%= book.description %></p>
 
       </div>
     </div>
@@ -34,4 +32,4 @@
 <br>
 
 
-<%- include('./parts/bottom.ejs')%>
+<%-include('parts/bottom.ejs')%>

@@ -11,3 +11,9 @@ exports.ThreeBookController = (req, res) => {
     res.render("index", { books: books });
   });
 };
+exports.idController = (req, res) => {
+  let id = req.params.id;
+  bookModel.getDetails(id).then((book) => {
+    res.render("details", { book: book });
+  });
+};

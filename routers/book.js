@@ -6,4 +6,6 @@ router.get("/", bookC.ThreeBookController);
 
 router.get("/books", bookC.bookController);
 
+router.get("/books/:id", bookC.idController);
+
 module.exports = router;
