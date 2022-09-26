@@ -9,6 +9,27 @@ const ejsLint = require("ejs-lint");
 const path = require("path");
 app.use(express.static(path.join(__dirname, "//assets")));
 
+var session = require("express-session");
+var MongoDBStore = require("connect-mongodb-session")(session);
+
+var store = new MongoDBStore({
+  uri: "mongodb://localhost:27017/bookStore",
+  collection: "mySessions",
+});
+
+app.use(
+  session({
+    secret: "This is a secret lkjasnfhkjsf",
+
+    store: store,
+    // Boilerplate options, see:
+    // * https://www.npmjs.com/package/express-session#resave
+    // * https://www.npmjs.com/package/express-session#saveuninitialized
+    resave: true,
+    saveUninitialized: true,
+  })
+);
+
 app.set("view engine", "ejs");
 app.set("views", "views");
 
@@ -33,9 +54,9 @@ app.get("/contact", (req, res) => {
   res.render("contact");
 });
 
-app.get("/login", (req, res) => {
-  res.render("login");
-});
+// app.get("/login", (req, res) => {
+//   res.render("login");
+// });
 
 // app.get("/register", (req, res) => {
 //   res.render("register");

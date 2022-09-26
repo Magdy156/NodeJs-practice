@@ -49,3 +49,28 @@ exports.registerFunctionModel = (firstName, lastName, email, password) => {
       });
   });
 };
+
+exports.loginFunctionModel = (email, password) => {
+  return new Promise((resolved, rejected) => {
+    mongoose
+      .connect(url)
+      .then(() => {
+        return User.findOne({ email: email });
+      })
+      .then((user) => {
+        if (user) {
+          bcrypt.compare(password, user.password).then((verified) => {
+            if (verified) {
+              mongoose.disconnect();
+              resolved(user._id);
+            } else {
+              rejected("wrong password");
+            }
+          });
+        } else {
+          mongoose.disconnect();
+          rejected("you are not registered");
+        }
+      });
+  });
+};

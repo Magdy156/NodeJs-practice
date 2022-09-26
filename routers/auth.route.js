@@ -8,4 +8,7 @@ route.get("/register", authController.getRegisterPage);
 
 route.post("/register", parse, authController.postRegisterData);
 
+route.get("/login", authController.getLoginPage);
+route.post("/login", parse, authController.postLoginData);
+
 module.exports = route;
