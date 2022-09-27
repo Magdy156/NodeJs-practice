@@ -44,21 +44,32 @@
                   <span class="sr-only">(current)</span>
                 </a>
               </li> 
+              <% if (verifUser){ %>
               <li class="nav-item">
                 <a class="nav-link" href="/books">Books</a>
               </li>
+              <%} else{%>
+                <li class="nav-item">
+                  <a class="nav-link" href="/login">Login</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/register">Register</a>
+                </li>
+              <% }%>
+
               <li class="nav-item">
                 <a class="nav-link" href="/about">About Us</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/contact">Contact Us</a>
               </li>
+              <% if (verifUser){ %>
               <li class="nav-item">
-                <a class="nav-link" href="/login">Login</a>
+                <form class="form-inline" method="POST" action="/logout">
+                   <button type="submit" class="btn btn-danger">Logout</button>
+                </form>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/register">Register</a>
-              </li>
+              <%} %>
             </ul>
           </div>
         </div>

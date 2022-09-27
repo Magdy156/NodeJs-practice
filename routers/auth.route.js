@@ -11,4 +11,6 @@ route.post("/register", parse, authController.postRegisterData);
 route.get("/login", authController.getLoginPage);
 route.post("/login", parse, authController.postLoginData);
 
+route.post("/logout", authController.logoutFunctionController);
+
 module.exports = route;

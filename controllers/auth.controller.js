@@ -1,7 +1,10 @@
 const authModel = require("../models/auth.model");
 
 exports.getRegisterPage = (req, res) => {
-  res.render("register");
+  res.render("register", {
+    verifUser: req.session.id,
+    message: req.flash("error")[0],
+  });
 };
 
 exports.postRegisterData = (req, res) => {
@@ -16,12 +19,17 @@ exports.postRegisterData = (req, res) => {
       res.redirect("/login");
     })
     .catch((err) => {
-      console.log(err);
+      // console.log(err);
+      req.flash("error", err);
+      res.redirect("register");
     });
 };
 
 exports.getLoginPage = (req, res) => {
-  res.render("login");
+  res.render("login", {
+    verifUser: req.session.id,
+    message: req.flash("error")[0],
+  });
 };
 
 exports.postLoginData = (req, res) => {
@@ -32,6 +40,13 @@ exports.postLoginData = (req, res) => {
       req.session.userId = id;
     })
     .catch((err) => {
-      console.log(err);
+      req.flash("error", err);
+      res.redirect("login");
     });
+};
+
+exports.logoutFunctionController = (req, res) => {
+  req.session.destroy(() => {
+    res.redirect("/login");
+  });
 };

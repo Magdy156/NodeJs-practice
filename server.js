@@ -36,6 +36,8 @@ app.set("views", "views");
 const bookRouter = require("./routers/book");
 const router = require("./routers/book");
 const authRoute = require("./routers/auth.route");
+const flash = require("connect-flash");
+app.use(flash());
 
 app.use("/", bookRouter);
 app.use("/books", bookRouter);
@@ -43,7 +45,7 @@ app.all("/books/:id", bookRouter);
 app.use("/", authRoute);
 
 app.get("/about", (req, res) => {
-  res.render("about");
+  res.render("about", { verifUser: req.session.id });
 });
 
 // app.get("/details", (req, res) => {
@@ -51,7 +53,7 @@ app.get("/about", (req, res) => {
 // });
 
 app.get("/contact", (req, res) => {
-  res.render("contact");
+  res.render("contact", { verifUser: req.session.id });
 });
 
 // app.get("/login", (req, res) => {
